@@ -1,0 +1,71 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities/general/clearfix";
+
+$piece-size : 40px;
+$piece-columns : 10;
+$piece-rows : 10;
+$board-width: $piece-size * $piece-columns;
+$board-height: $piece-size * $piece-rows;
+
+div.board-container {
+	width:$board-width;
+	height:$board-height;
+	padding:10px;
+	margin:5px;
+	border:1px black solid;
+	@include border-radius(4px, 4px);
+	@include background-image(linear-gradient(top, #404040, #000000));
+}
+
+div.board {
+	@include clearfix;
+	
+	div.pieces, div.base-pieces{
+		position: absolute;
+		@include clearfix;
+		width:$board-width;
+	}
+
+	div.piece {
+		width:$piece-size;
+		height:$piece-size;
+		display:inline-block;
+		float: left;
+
+		&:nth-of-type(10n+1) {
+			clear: both;
+		}
+	}
+
+	div.base-pieces {
+		@include background-image(linear-gradient(top, white, #f0f0f0));
+		div.piece {
+			@include box-shadow(rgba(white, 0.8) -0px -0px 1px 1px inset, rgba(black, 0.1) 1px 1px 2px 2px inset);
+		}
+	}
+	div.pieces {
+		@include box-shadow(rgba(black, 0.5) 0px 0px 2px 2px, rgba(black, 0.8) 0px 0px 2px 2px inset);
+	}
+}
+
+div.player-piece-deck {
+	padding:10px;
+	width:$board-width;
+	border:1px black solid;
+	@include border-radius(4px, 4px);
+
+	div.deck-piece {
+		display:inline-block;
+		margin:8px;
+		width:60px;
+		height:60px;
+		background-color:red;
+	}
+}
+

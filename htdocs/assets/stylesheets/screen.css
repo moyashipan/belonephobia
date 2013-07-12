@@ -1,0 +1,128 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+div.board-container {
+  width: 400px;
+  height: 400px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px black solid;
+  -webkit-border-radius: 4px 4px;
+  -moz-border-radius: 4px / 4px;
+  border-radius: 4px / 4px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #404040), color-stop(100%, #000000));
+  background-image: -webkit-linear-gradient(top, #404040, #000000);
+  background-image: -moz-linear-gradient(top, #404040, #000000);
+  background-image: -o-linear-gradient(top, #404040, #000000);
+  background-image: linear-gradient(top, #404040, #000000);
+}
+
+div.board {
+  overflow: hidden;
+  *zoom: 1;
+}
+div.board div.pieces, div.board div.base-pieces {
+  position: absolute;
+  overflow: hidden;
+  *zoom: 1;
+  width: 400px;
+}
+div.board div.piece {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  float: left;
+}
+div.board div.piece:nth-of-type(10n+1) {
+  clear: both;
+}
+div.board div.base-pieces {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #f0f0f0));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f0f0f0);
+  background-image: -moz-linear-gradient(top, #ffffff, #f0f0f0);
+  background-image: -o-linear-gradient(top, #ffffff, #f0f0f0);
+  background-image: linear-gradient(top, #ffffff, #f0f0f0);
+}
+div.board div.base-pieces div.piece {
+  -webkit-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.1) 1px 1px 2px 2px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.1) 1px 1px 2px 2px inset;
+  box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.1) 1px 1px 2px 2px inset;
+}
+div.board div.pieces {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 2px, rgba(0, 0, 0, 0.8) 0px 0px 2px 2px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 2px, rgba(0, 0, 0, 0.8) 0px 0px 2px 2px inset;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 2px, rgba(0, 0, 0, 0.8) 0px 0px 2px 2px inset;
+}
+
+div.player-piece-deck {
+  padding: 10px;
+  width: 400px;
+  border: 1px black solid;
+  -webkit-border-radius: 4px 4px;
+  -moz-border-radius: 4px / 4px;
+  border-radius: 4px / 4px;
+}
+div.player-piece-deck div.deck-piece {
+  display: inline-block;
+  margin: 8px;
+  width: 60px;
+  height: 60px;
+  background-color: red;
+}
