@@ -15,17 +15,18 @@ $board-width : $piece-size * $piece-columns;
 $board-height : $piece-size * $piece-rows;
 
 $deck-height : 100px;
-$deck-margin : 42px;
+$deck-margin : 62px;
 
 $game-width : $board-width + 22px + ($deck-height + $deck-margin) * 2;
 
-$player0-base-color: #55C6FF;
-$player1-base-color: #FFEE55;
-$player2-base-color: #55FFB3;
-$player3-base-color: #FF556C;
+$player0-base-color: #2A7CFF;
+$player1-base-color: #FFD12A;
+$player2-base-color: #46FF2A;
+$player3-base-color: #FF2A46;
 
 div.game-container {
-	height:800px;
+	width:1024px;
+	height:768px;
 	@include background-image(linear-gradient(top, #00967d, #006958));
 }
 div.board-container {
@@ -68,6 +69,10 @@ div.board-container {
 				div.piece {
 					@include background-image(linear-gradient(top, rgba(white, 0.2), rgba(white, 0.1)));
 					@include box-shadow(rgba(white, 0.3) -0px -0px 1px 1px inset, rgba(black, 0.3) 1px 1px 2px 2px inset);
+
+					&.highlight {
+						background-color: rgba(red, 0.5);
+					}
 				}
 			}
 
@@ -103,6 +108,20 @@ div.board-container {
 						@include player_piece($player3-base-color);
 					}
 
+					// 角度ごとの見た目
+					&.rotate_0 {
+						@include rotate(0deg);
+					}
+					&.rotate_1 {
+						@include rotate(90deg);
+					}
+					&.rotate_2 {
+						@include rotate(180deg);
+					}
+					&.rotate_3 {
+						@include rotate(270deg);
+					}
+
 					// 種類ごとの見た目
 					&.type_straight		{background-image: url(../images/piece_straight.png);}
 					&.type_right_curve	{background-image: url(../images/piece_right_curve.png);}
@@ -130,6 +149,7 @@ div.decks {
 		position:absolute;
 		@include transform-origin($game-width / 2, $game-width /2);
 
+		/* 各プレイヤdeck */
 		@mixin deck($base-color) {
 			div.deck-piece {
 				@include box-shadow(
@@ -139,7 +159,6 @@ div.decks {
 			}
 			div.deck {
 				background-color:$base-color;
-				@include background-image(linear-gradient(top, rgba(white, 0.1), rgba(black, 0.3)));
 			}
 		}	
 		&.deck0{
@@ -163,28 +182,51 @@ div.decks {
 			div.deck {
 				@include box-shadow(
 					rgba(black, 0.2) 0px 0px 4px 1px,
-					rgba(black, 0.4) 0px 0px 2px 1px inset
+					rgba(black, 0.2) 0px 0px 2px 1px inset
 				);
-				@include opacity(0.8);
 			}
 		}
 
+		/* 共通deck */
 		div.deck {
+			width: $board-width + $deck-height + $deck-margin + 10px;
 			position:absolute;
 			top:$board-width + $deck-height + ($deck-margin - 5px) * 2;
 			left: $deck-height + $deck-margin;
+			@include background-image(linear-gradient(top, rgba(white, 0.1), rgba(white, 0.0)));
 			@include border-radius(4px, 4px);
 			@include box-shadow(
-				rgba(white, 0.8) 0px 0px 2px 4px,
-				rgba(black, 0.4) 0px 0px 2px 1px inset
+				rgba(white, 1) 0px 0px 2px 4px,
+				rgba(black, 1) 0px 0px 2px 8px
 			);
 
-			div.deck-pieces {
-				width:$board-width;
-				height:$deck-height;
-				overflow:scroll;
-				margin:10px;
-			}			
+		}
+
+		div.deck-pieces {
+			display: inline-block;
+			width:$board-width - 10px;
+			height:$deck-height;
+			overflow:scroll;
+			margin: 10px 0px 10px 10px;
+			padding-right: 10px;
+			float: left;
+			border-right: 1px dashed white;
+
+		}
+
+		div.deck-actions {
+			display: inline-block;
+			width: 120px;
+			background-color: rgba(white, 0.2);
+			height: 100px;
+			margin: 10px;
+			float: left;
+
+			// TODO:これでいいのか？
+			&:after {
+				content:"";
+				clear:both;
+			}
 		}
 
 		div.deck-piece {
@@ -195,6 +237,21 @@ div.decks {
 			@include border-radius(2px, 2px);
 			background-color:white;
 			@include background-size(30px);
+
+			&.focus {
+				@include box-shadow(
+					rgba(black, 1.0) 0px 0px 0px 3px,
+					rgba(red, 1.0) 0px 0px 0px 5px
+				);
+			}
+
+			&.disabled {
+				@include opacity(0.15);
+				@include box-shadow(
+					rgba(black, 0.5) 0px 0px 0px 3px,
+					rgba(white, 1.0) 0px 0px 0px 5px
+				);
+			}
 
 			&:hover {
 				cursor: pointer;
