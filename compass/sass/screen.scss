@@ -10,62 +10,206 @@
 $piece-size : 40px;
 $piece-columns : 10;
 $piece-rows : 10;
-$board-width: $piece-size * $piece-columns;
-$board-height: $piece-size * $piece-rows;
 
+$board-width : $piece-size * $piece-columns;
+$board-height : $piece-size * $piece-rows;
+
+$deck-height : 100px;
+$deck-margin : 42px;
+
+$game-width : $board-width + 22px + ($deck-height + $deck-margin) * 2;
+
+$player0-base-color: #55C6FF;
+$player1-base-color: #FFEE55;
+$player2-base-color: #55FFB3;
+$player3-base-color: #FF556C;
+
+div.game-container {
+	width:100%;
+	height:100%;
+	@include background-image(linear-gradient(top, #00967d, #006958));
+}
 div.board-container {
-	width:$board-width;
-	height:$board-height;
-	padding:10px;
-	margin:5px;
-	border:1px black solid;
-	@include border-radius(4px, 4px);
-	@include background-image(linear-gradient(top, #404040, #000000));
-}
+	position:absolute;
+	width:$game-width;
+	height:$game-width;
 
-div.board {
-	@include clearfix;
-	
-	div.pieces, div.base-pieces{
-		position: absolute;
-		@include clearfix;
+	div.board {
 		width:$board-width;
-	}
+		height:$board-height;
+		padding:10px;
+		border:1px black solid;
+		@include border-radius(4px, 4px);
+		@include background-image(linear-gradient(top, #404040, #000000));
+		margin:$deck-height + $deck-margin;
 
-	div.piece {
-		width:$piece-size;
-		height:$piece-size;
-		display:inline-block;
-		float: left;
+		div.board-inner {
+			width:$board-width;
+			height:$board-height;
+			@include clearfix;
+			
+			div.pieces, div.base-pieces{
+				position: absolute;
+				width:$board-width;
+			}
 
-		&:nth-of-type(10n+1) {
-			clear: both;
+			div.piece {
+				width:$piece-size;
+				height:$piece-size;
+				display:inline-block;
+				float: left;
+
+				&:nth-of-type(10n+1) {
+					clear: both;
+				}
+			}
+
+			div.base-pieces {
+				@include background-image(linear-gradient(top, #b0b0b0, #606060));
+				div.piece {
+					@include background-image(linear-gradient(top, rgba(white, 0.2), rgba(white, 0.1)));
+					@include box-shadow(rgba(white, 0.3) -0px -0px 1px 1px inset, rgba(black, 0.3) 1px 1px 2px 2px inset);
+				}
+			}
+
+			@mixin player_piece($base-color) {
+				@include border-radius(4px, 4px);
+				@include box-shadow(
+					rgba($base-color, 0.7) 0px 0px 0px 3px inset
+				);
+				@include translate(1px, 1px);
+				background-color:white;
+			}
+
+			div.pieces {
+				@include box-shadow(rgba(black, 0.5) 0px 0px 2px 2px, rgba(black, 0.8) 0px 0px 2px 2px inset);
+				div.piece {
+					@include background-size($piece-size, $piece-size);
+
+					&:hover {
+						cursor:pointer;
+					}
+
+					// playerごとの見た目					
+					&.player0 {
+						@include player_piece($player0-base-color);
+					}
+					&.player1 {
+						@include player_piece($player1-base-color);
+					}
+					&.player2 {
+						@include player_piece($player2-base-color);
+					}
+					&.player3 {
+						@include player_piece($player3-base-color);
+					}
+
+					// 種類ごとの見た目
+					&.type_straight		{background-image: url(../images/piece_straight.png);}
+					&.type_right_curve	{background-image: url(../images/piece_right_curve.png);}
+					&.type_left_curve	{background-image: url(../images/piece_left_curve.png);}
+					&.type_right_turn	{
+						@include background-size(80px, 40px);
+						background-image: url(../images/piece_right_turn.png);
+					}
+					&.type_left_turn	{
+						@include background-size(80px, 40px);
+						background-image: url(../images/piece_left_turn.png);
+					}
+					&.type_side_branch	{background-image: url(../images/piece_side_branch.png);}
+					&.type_triple_branch	{background-image: url(../images/piece_triple_branch.png);}
+					&.type_block			{background-image: url(../images/piece_block.png);}
+				}
+			}
 		}
-	}
-
-	div.base-pieces {
-		@include background-image(linear-gradient(top, white, #f0f0f0));
-		div.piece {
-			@include box-shadow(rgba(white, 0.8) -0px -0px 1px 1px inset, rgba(black, 0.1) 1px 1px 2px 2px inset);
-		}
-	}
-	div.pieces {
-		@include box-shadow(rgba(black, 0.5) 0px 0px 2px 2px, rgba(black, 0.8) 0px 0px 2px 2px inset);
 	}
 }
 
-div.player-piece-deck {
-	padding:10px;
-	width:$board-width;
-	border:1px black solid;
-	@include border-radius(4px, 4px);
+div.decks {
+	position:absolute;
+	div.player-piece-deck-container {
+		position:absolute;
+		@include transform-origin($game-width / 2, $game-width /2);
 
-	div.deck-piece {
-		display:inline-block;
-		margin:8px;
-		width:60px;
-		height:60px;
-		background-color:red;
+		@mixin deck($base-color) {
+			div.deck-piece {
+				@include box-shadow(
+					rgba($base-color, 1.0) 0px 0px 0px 3px,
+					rgba(white, 1.0) 0px 0px 0px 4px
+				);
+			}
+			div.deck {
+				background-color:$base-color;
+				@include background-image(linear-gradient(top, rgba(white, 0.1), rgba(black, 0.3)));
+			}
+		}	
+		&.deck0{
+			@include rotate(0deg);
+			@include deck($player0-base-color);
+		}
+		&.deck1{
+			@include rotate(90deg);
+			@include deck($player1-base-color);
+		}
+		&.deck2{
+			@include rotate(180deg);
+			@include deck($player2-base-color);
+		}
+		&.deck3{
+			@include rotate(270deg);
+			@include deck($player3-base-color);
+		}
+
+		div.deck {
+			position:absolute;
+			top:$board-width + $deck-height + ($deck-margin - 5px) * 2;
+			left: $deck-height + $deck-margin;
+			@include border-radius(4px, 4px);
+			@include box-shadow(
+				rgba(black, 0.2) 0px 0px 4px 1px,
+				rgba(black, 0.4) 0px 0px 2px 1px inset
+			);
+
+			div.deck-pieces {
+				width:$board-width;
+				height:$deck-height;
+				overflow:scroll;
+				margin:10px;
+			}			
+		}
+
+		div.deck-piece {
+			display:inline-block;
+			margin:7px;
+			width:30px;
+			height:30px;
+			@include border-radius(2px, 2px);
+			background-color:white;
+			@include background-size(30px);
+
+			&:hover {
+				cursor: pointer;
+				@include scale(1.1);
+			}
+
+			&.straight		{background-image: url(../images/piece_straight.png);}
+			&.right_curve	{background-image: url(../images/piece_right_curve.png);}
+			&.left_curve	{background-image: url(../images/piece_left_curve.png);}
+			&.right_turn	{
+				width:60px;
+				@include background-size(60px);
+				background-image: url(../images/piece_right_turn.png);
+			}
+			&.left_turn	{
+				width:60px;
+				@include background-size(60px);
+				background-image: url(../images/piece_left_turn.png);
+			}
+			&.side_branch	{background-image: url(../images/piece_side_branch.png);}
+			&.triple_branch	{background-image: url(../images/piece_triple_branch.png);}
+			&.block			{background-image: url(../images/piece_block.png);}
+		}
+		
 	}
 }
 
