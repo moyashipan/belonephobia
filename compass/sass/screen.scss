@@ -25,8 +25,7 @@ $player2-base-color: #55FFB3;
 $player3-base-color: #FF556C;
 
 div.game-container {
-	width:100%;
-	height:100%;
+	height:800px;
 	@include background-image(linear-gradient(top, #00967d, #006958));
 }
 div.board-container {
@@ -91,16 +90,16 @@ div.board-container {
 					}
 
 					// playerごとの見た目					
-					&.player0 {
+					&.player_0 {
 						@include player_piece($player0-base-color);
 					}
-					&.player1 {
+					&.player_1 {
 						@include player_piece($player1-base-color);
 					}
-					&.player2 {
+					&.player_2 {
 						@include player_piece($player2-base-color);
 					}
-					&.player3 {
+					&.player_3 {
 						@include player_piece($player3-base-color);
 					}
 
@@ -127,7 +126,7 @@ div.board-container {
 
 div.decks {
 	position:absolute;
-	div.player-piece-deck-container {
+	div.deck-container {
 		position:absolute;
 		@include transform-origin($game-width / 2, $game-width /2);
 
@@ -160,13 +159,23 @@ div.decks {
 			@include deck($player3-base-color);
 		}
 
+		&.disabled {
+			div.deck {
+				@include box-shadow(
+					rgba(black, 0.2) 0px 0px 4px 1px,
+					rgba(black, 0.4) 0px 0px 2px 1px inset
+				);
+				@include opacity(0.8);
+			}
+		}
+
 		div.deck {
 			position:absolute;
 			top:$board-width + $deck-height + ($deck-margin - 5px) * 2;
 			left: $deck-height + $deck-margin;
 			@include border-radius(4px, 4px);
 			@include box-shadow(
-				rgba(black, 0.2) 0px 0px 4px 1px,
+				rgba(white, 0.8) 0px 0px 2px 4px,
 				rgba(black, 0.4) 0px 0px 2px 1px inset
 			);
 
@@ -192,22 +201,22 @@ div.decks {
 				@include scale(1.1);
 			}
 
-			&.straight		{background-image: url(../images/piece_straight.png);}
-			&.right_curve	{background-image: url(../images/piece_right_curve.png);}
-			&.left_curve	{background-image: url(../images/piece_left_curve.png);}
-			&.right_turn	{
+			&.type_straight		{background-image: url(../images/piece_straight.png);}
+			&.type_right_curve	{background-image: url(../images/piece_right_curve.png);}
+			&.type_left_curve	{background-image: url(../images/piece_left_curve.png);}
+			&.type_right_turn	{
 				width:60px;
 				@include background-size(60px);
 				background-image: url(../images/piece_right_turn.png);
 			}
-			&.left_turn	{
+			&.type_left_turn	{
 				width:60px;
 				@include background-size(60px);
 				background-image: url(../images/piece_left_turn.png);
 			}
-			&.side_branch	{background-image: url(../images/piece_side_branch.png);}
-			&.triple_branch	{background-image: url(../images/piece_triple_branch.png);}
-			&.block			{background-image: url(../images/piece_block.png);}
+			&.type_side_branch	{background-image: url(../images/piece_side_branch.png);}
+			&.type_triple_branch	{background-image: url(../images/piece_triple_branch.png);}
+			&.type_block			{background-image: url(../images/piece_block.png);}
 		}
 		
 	}
