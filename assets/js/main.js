@@ -6,13 +6,31 @@ Player.prototype = {
 	id: null,
 	name: '',
 	deck: [],
-	drawDeck: function() {
+	enabled: false,
+	setEnable: function(bool) {
+		this.enabled = bool;
+		this.drawDeck();
+	},
+	initDeck: function() {
+		var container = $('.deck' + this.id);
+		var pieces = container.find('.deck-pieces');
+		pieces.children().remove();
+
 		if (!this.deck) return;
 		var piece = $('.deck-piece-template').clone().removeClass('deck-piece-template').addClass('deck-piece');
-		var container = $('.deck' + this.id).find('.deck-pieces');
 		for (var i in this.deck) {
-			container.append(piece.clone().addClass(this.deck[i].name));
+			pieces.append(piece.clone().addClass('type_' + this.deck[i].name));
 		}
+	},
+	drawDeck: function() {
+		var container = $('.deck' + this.id);
+		container.toggleClass('disabled', !this.enabled);
+
+		if (!this.deck) return;
+		var pieces = container.find('.deck-pieces');
+		container.children().each(function(){
+			// TODO:
+		}); 
 	}
 };
 
@@ -87,6 +105,13 @@ var deck_piece_names = [
 	'block'
 ];
 
+// TODO:クラスメソッドにする
+function nextTurn() {
+	players[player_turn].setEnable(false);
+	player_turn = (player_turn + 1) % max_player;
+	players[player_turn].setEnable(true);
+}
+
 (function($){
 	// 各プレイヤーに配るデッキを作成	
 	var deck = [];
@@ -102,7 +127,7 @@ var deck_piece_names = [
 	
 	// 各プレイヤーを作成
 	// TODO:プレイヤーIDとdeckIDをどう結びつけるか
-	var players = [
+	players = [
 		new Player(0),
 		new Player(1),
 		new Player(2),
@@ -126,10 +151,10 @@ var deck_piece_names = [
 				_piece.on('click', function(e){
 					var type = piece_names[Math.floor(Math.random() * piece_names.length)];
 					$(this).removeClass(function(index, css) {
-						return (css.match(/\b(type\_|player)\S+/g) || []).join(' ');
+						return (css.match(/\b(type|player)\_\S+/g) || []).join(' ');
 					});
-					$(this).addClass('type_' + type).addClass('player' + player_turn);
-					player_turn = (player_turn + 1) % max_player;
+					$(this).addClass('type_' + type).addClass('player_' + player_turn);
+					nextTurn();
 				}); 
 				pieces.append(_piece);
 			}
@@ -137,7 +162,10 @@ var deck_piece_names = [
 
 		for (var i in players) {
 			var player = players[i];
-			player.drawDeck();
+			player.initDeck();
 		}
+
+		// 本来ならプレイヤの順番を決めてから
+		players[player_turn].setEnable(true);
 	});
 })(jQuery);

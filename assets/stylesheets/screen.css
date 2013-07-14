@@ -59,8 +59,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 div.game-container {
-  width: 100%;
-  height: 100%;
+  height: 800px;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #00967d), color-stop(100%, #006958));
   background-image: -webkit-linear-gradient(top, #00967d, #006958);
   background-image: -moz-linear-gradient(top, #00967d, #006958);
@@ -138,7 +137,7 @@ div.board-container div.board div.board-inner div.pieces div.piece {
 div.board-container div.board div.board-inner div.pieces div.piece:hover {
   cursor: pointer;
 }
-div.board-container div.board div.board-inner div.pieces div.piece.player0 {
+div.board-container div.board div.board-inner div.pieces div.piece.player_0 {
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
@@ -152,7 +151,7 @@ div.board-container div.board div.board-inner div.pieces div.piece.player0 {
   transform: translate(1px, 1px);
   background-color: white;
 }
-div.board-container div.board div.board-inner div.pieces div.piece.player1 {
+div.board-container div.board div.board-inner div.pieces div.piece.player_1 {
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
@@ -166,7 +165,7 @@ div.board-container div.board div.board-inner div.pieces div.piece.player1 {
   transform: translate(1px, 1px);
   background-color: white;
 }
-div.board-container div.board div.board-inner div.pieces div.piece.player2 {
+div.board-container div.board div.board-inner div.pieces div.piece.player_2 {
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
@@ -180,7 +179,7 @@ div.board-container div.board div.board-inner div.pieces div.piece.player2 {
   transform: translate(1px, 1px);
   background-color: white;
 }
-div.board-container div.board div.board-inner div.pieces div.piece.player3 {
+div.board-container div.board div.board-inner div.pieces div.piece.player_3 {
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
@@ -230,7 +229,7 @@ div.board-container div.board div.board-inner div.pieces div.piece.type_block {
 div.decks {
   position: absolute;
 }
-div.decks div.player-piece-deck-container {
+div.decks div.deck-container {
   position: absolute;
   -webkit-transform-origin: 353px 353px;
   -moz-transform-origin: 353px 353px;
@@ -238,19 +237,19 @@ div.decks div.player-piece-deck-container {
   -o-transform-origin: 353px 353px;
   transform-origin: 353px 353px;
 }
-div.decks div.player-piece-deck-container.deck0 {
+div.decks div.deck-container.deck0 {
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
   -o-transform: rotate(0deg);
   transform: rotate(0deg);
 }
-div.decks div.player-piece-deck-container.deck0 div.deck-piece {
+div.decks div.deck-container.deck0 div.deck-piece {
   -webkit-box-shadow: #55c6ff 0px 0px 0px 3px, white 0px 0px 0px 4px;
   -moz-box-shadow: #55c6ff 0px 0px 0px 3px, white 0px 0px 0px 4px;
   box-shadow: #55c6ff 0px 0px 0px 3px, white 0px 0px 0px 4px;
 }
-div.decks div.player-piece-deck-container.deck0 div.deck {
+div.decks div.deck-container.deck0 div.deck {
   background-color: #55c6ff;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.3)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
@@ -258,19 +257,19 @@ div.decks div.player-piece-deck-container.deck0 div.deck {
   background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
   background-image: linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
 }
-div.decks div.player-piece-deck-container.deck1 {
+div.decks div.deck-container.deck1 {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-div.decks div.player-piece-deck-container.deck1 div.deck-piece {
+div.decks div.deck-container.deck1 div.deck-piece {
   -webkit-box-shadow: #ffee55 0px 0px 0px 3px, white 0px 0px 0px 4px;
   -moz-box-shadow: #ffee55 0px 0px 0px 3px, white 0px 0px 0px 4px;
   box-shadow: #ffee55 0px 0px 0px 3px, white 0px 0px 0px 4px;
 }
-div.decks div.player-piece-deck-container.deck1 div.deck {
+div.decks div.deck-container.deck1 div.deck {
   background-color: #ffee55;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.3)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
@@ -278,19 +277,19 @@ div.decks div.player-piece-deck-container.deck1 div.deck {
   background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
   background-image: linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
 }
-div.decks div.player-piece-deck-container.deck2 {
+div.decks div.deck-container.deck2 {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-div.decks div.player-piece-deck-container.deck2 div.deck-piece {
+div.decks div.deck-container.deck2 div.deck-piece {
   -webkit-box-shadow: #55ffb3 0px 0px 0px 3px, white 0px 0px 0px 4px;
   -moz-box-shadow: #55ffb3 0px 0px 0px 3px, white 0px 0px 0px 4px;
   box-shadow: #55ffb3 0px 0px 0px 3px, white 0px 0px 0px 4px;
 }
-div.decks div.player-piece-deck-container.deck2 div.deck {
+div.decks div.deck-container.deck2 div.deck {
   background-color: #55ffb3;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.3)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
@@ -298,19 +297,19 @@ div.decks div.player-piece-deck-container.deck2 div.deck {
   background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
   background-image: linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
 }
-div.decks div.player-piece-deck-container.deck3 {
+div.decks div.deck-container.deck3 {
   -webkit-transform: rotate(270deg);
   -moz-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
   -o-transform: rotate(270deg);
   transform: rotate(270deg);
 }
-div.decks div.player-piece-deck-container.deck3 div.deck-piece {
+div.decks div.deck-container.deck3 div.deck-piece {
   -webkit-box-shadow: #ff556c 0px 0px 0px 3px, white 0px 0px 0px 4px;
   -moz-box-shadow: #ff556c 0px 0px 0px 3px, white 0px 0px 0px 4px;
   box-shadow: #ff556c 0px 0px 0px 3px, white 0px 0px 0px 4px;
 }
-div.decks div.player-piece-deck-container.deck3 div.deck {
+div.decks div.deck-container.deck3 div.deck {
   background-color: #ff556c;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.3)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
@@ -318,24 +317,31 @@ div.decks div.player-piece-deck-container.deck3 div.deck {
   background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
   background-image: linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
 }
-div.decks div.player-piece-deck-container div.deck {
+div.decks div.deck-container.disabled div.deck {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+}
+div.decks div.deck-container div.deck {
   position: absolute;
   top: 574px;
   left: 142px;
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 2px 4px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 2px 4px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 2px 4px, rgba(0, 0, 0, 0.4) 0px 0px 2px 1px inset;
 }
-div.decks div.player-piece-deck-container div.deck div.deck-pieces {
+div.decks div.deck-container div.deck div.deck-pieces {
   width: 400px;
   height: 100px;
   overflow: scroll;
   margin: 10px;
 }
-div.decks div.player-piece-deck-container div.deck-piece {
+div.decks div.deck-container div.deck-piece {
   display: inline-block;
   margin: 7px;
   width: 30px;
@@ -349,7 +355,7 @@ div.decks div.player-piece-deck-container div.deck-piece {
   -o-background-size: 30px;
   background-size: 30px;
 }
-div.decks div.player-piece-deck-container div.deck-piece:hover {
+div.decks div.deck-container div.deck-piece:hover {
   cursor: pointer;
   -webkit-transform: scale(1.1, 1.1);
   -moz-transform: scale(1.1, 1.1);
@@ -357,16 +363,16 @@ div.decks div.player-piece-deck-container div.deck-piece:hover {
   -o-transform: scale(1.1, 1.1);
   transform: scale(1.1, 1.1);
 }
-div.decks div.player-piece-deck-container div.deck-piece.straight {
+div.decks div.deck-container div.deck-piece.type_straight {
   background-image: url(../images/piece_straight.png);
 }
-div.decks div.player-piece-deck-container div.deck-piece.right_curve {
+div.decks div.deck-container div.deck-piece.type_right_curve {
   background-image: url(../images/piece_right_curve.png);
 }
-div.decks div.player-piece-deck-container div.deck-piece.left_curve {
+div.decks div.deck-container div.deck-piece.type_left_curve {
   background-image: url(../images/piece_left_curve.png);
 }
-div.decks div.player-piece-deck-container div.deck-piece.right_turn {
+div.decks div.deck-container div.deck-piece.type_right_turn {
   width: 60px;
   -webkit-background-size: 60px;
   -moz-background-size: 60px;
@@ -374,7 +380,7 @@ div.decks div.player-piece-deck-container div.deck-piece.right_turn {
   background-size: 60px;
   background-image: url(../images/piece_right_turn.png);
 }
-div.decks div.player-piece-deck-container div.deck-piece.left_turn {
+div.decks div.deck-container div.deck-piece.type_left_turn {
   width: 60px;
   -webkit-background-size: 60px;
   -moz-background-size: 60px;
@@ -382,12 +388,12 @@ div.decks div.player-piece-deck-container div.deck-piece.left_turn {
   background-size: 60px;
   background-image: url(../images/piece_left_turn.png);
 }
-div.decks div.player-piece-deck-container div.deck-piece.side_branch {
+div.decks div.deck-container div.deck-piece.type_side_branch {
   background-image: url(../images/piece_side_branch.png);
 }
-div.decks div.player-piece-deck-container div.deck-piece.triple_branch {
+div.decks div.deck-container div.deck-piece.type_triple_branch {
   background-image: url(../images/piece_triple_branch.png);
 }
-div.decks div.player-piece-deck-container div.deck-piece.block {
+div.decks div.deck-container div.deck-piece.type_block {
   background-image: url(../images/piece_block.png);
 }
