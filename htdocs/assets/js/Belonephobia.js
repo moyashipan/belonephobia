@@ -121,6 +121,57 @@ Belonephobia.prototype = {
 			}
 		}
 	},
+	// ダメージを計算する
+	getDamages: function(){
+		var map = {"0,1":0, "-1,0":1, "0,-1":2, "1,0":3};
+		var player_damages = [0, 0, 0, 0];
+		for (var x in this.board_pieces) {
+			var pieces = this.board_pieces[x];
+			for (var y in pieces) {
+				var piece = pieces[y];
+				if (piece.isBlank()) continue;
+				var outputs = piece.outputs;
+				if (!outputs) continue;
+				
+				// 向いてる先のピースを調べる
+				for (var i in outputs) {
+					var position = outputs[i];
+					try {
+						var target_piece = this.board_pieces[+x + position[0]][+y + position[1]];
+						if (target_piece.isBlank()) continue;
+						if (!target_piece.input) {
+							player_damages[map[position.join(',')]]++;
+							continue;
+						}
+						// TODO:calcSub()をutilなどに置く
+						if (target_piece.input[0] + position[0] == 0 && target_piece.input[1] + position[1] == 0) {
+							// 先がつながっている
+							continue;
+						}
+						player_damages[map[position.join(',')]]++;
+					} catch (e) {
+						player_damages[map[position.join(',')]]++;
+					}
+				}
+			}
+		}
+		// undefinedなどを除外する
+		player_damages = [player_damages[0], player_damages[1], player_damages[2], player_damages[3]];
+		console.log(player_damages);
+		return player_damages;
+	},
+	drawDamages: function(player_damages){
+		for (var i = 0; i < 4; i++) {
+			var player_id = i;
+			var damage = player_damages[i];
+			var damages = $('div.deck' + i).find('div.deck-damages');
+			damages.children().remove();
+			for (var d = 0; d < damage; d++) {
+				damages.append($('<div>').addClass('damage'));
+			}
+		}
+		return player_damages;
+	},
 	drawBoardPieces: function() {
 		for (var x in this.board_pieces) {
 			var pieces = this.board_pieces[x];

@@ -59,6 +59,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+@-webkit-keyframes pulse {
+  from {
+    -webkit-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
+    -moz-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
+    box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
+  }
+
+  to {
+    -webkit-box-shadow: rgba(255, 255, 255, 0) 0px 0px 1px 4px;
+    -moz-box-shadow: rgba(255, 255, 255, 0) 0px 0px 1px 4px;
+    box-shadow: rgba(255, 255, 255, 0) 0px 0px 1px 4px;
+  }
+}
+
 div.game-container {
   width: 1024px;
   height: 768px;
@@ -335,15 +349,10 @@ div.decks div.deck-container.deck3 div.deck-piece {
 div.decks div.deck-container.deck3 div.deck {
   background-color: #ff2a46;
 }
-div.decks div.deck-container.disabled div.deck {
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
-}
 div.decks div.deck-container div.deck {
   width: 572px;
   position: absolute;
-  top: 614px;
+  top: 594px;
   left: 162px;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
@@ -353,11 +362,35 @@ div.decks div.deck-container div.deck {
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
-  -webkit-box-shadow: white 0px 0px 2px 4px, black 0px 0px 2px 8px;
-  -moz-box-shadow: white 0px 0px 2px 4px, black 0px 0px 2px 8px;
-  box-shadow: white 0px 0px 2px 4px, black 0px 0px 2px 8px;
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 0.2s;
+  -webkit-animation-iteration-count: 10;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-direction: alternate;
+  -webkit-animation-delay: 0s;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
+  box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
 }
-div.decks div.deck-container div.deck-pieces {
+div.decks div.deck-container div.deck div.deck-damages {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 20px;
+  -moz-border-radius-topleft: 4px;
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+div.decks div.deck-container div.deck div.deck-damages div.damage {
+  display: inline-block;
+  background-color: red;
+  width: 16px;
+  height: 16px;
+  margin: 2px 0px 0px 2px;
+}
+div.decks div.deck-container div.deck div.deck-pieces {
   display: inline-block;
   width: 390px;
   height: 100px;
@@ -367,19 +400,7 @@ div.decks div.deck-container div.deck-pieces {
   float: left;
   border-right: 1px dashed white;
 }
-div.decks div.deck-container div.deck-actions {
-  display: inline-block;
-  width: 120px;
-  background-color: rgba(255, 255, 255, 0.2);
-  height: 100px;
-  margin: 10px;
-  float: left;
-}
-div.decks div.deck-container div.deck-actions:after {
-  content: "";
-  clear: both;
-}
-div.decks div.deck-container div.deck-piece {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece {
   display: inline-block;
   margin: 7px;
   width: 30px;
@@ -393,19 +414,19 @@ div.decks div.deck-container div.deck-piece {
   -o-background-size: 30px;
   background-size: 30px;
 }
-div.decks div.deck-container div.deck-piece.focus {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.focus {
   -webkit-box-shadow: black 0px 0px 0px 3px, red 0px 0px 0px 5px;
   -moz-box-shadow: black 0px 0px 0px 3px, red 0px 0px 0px 5px;
   box-shadow: black 0px 0px 0px 3px, red 0px 0px 0px 5px;
 }
-div.decks div.deck-container div.deck-piece.disabled {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.disabled {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=15);
   opacity: 0.15;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 3px, white 0px 0px 0px 5px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 3px, white 0px 0px 0px 5px;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 3px, white 0px 0px 0px 5px;
 }
-div.decks div.deck-container div.deck-piece:hover {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece:hover {
   cursor: pointer;
   -webkit-transform: scale(1.1, 1.1);
   -moz-transform: scale(1.1, 1.1);
@@ -413,16 +434,16 @@ div.decks div.deck-container div.deck-piece:hover {
   -o-transform: scale(1.1, 1.1);
   transform: scale(1.1, 1.1);
 }
-div.decks div.deck-container div.deck-piece.type_straight {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_straight {
   background-image: url(../images/piece_straight.png);
 }
-div.decks div.deck-container div.deck-piece.type_right_curve {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_right_curve {
   background-image: url(../images/piece_right_curve.png);
 }
-div.decks div.deck-container div.deck-piece.type_left_curve {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_left_curve {
   background-image: url(../images/piece_left_curve.png);
 }
-div.decks div.deck-container div.deck-piece.type_right_turn {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_right_turn {
   width: 60px;
   -webkit-background-size: 60px;
   -moz-background-size: 60px;
@@ -430,7 +451,7 @@ div.decks div.deck-container div.deck-piece.type_right_turn {
   background-size: 60px;
   background-image: url(../images/piece_right_turn.png);
 }
-div.decks div.deck-container div.deck-piece.type_left_turn {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_left_turn {
   width: 60px;
   -webkit-background-size: 60px;
   -moz-background-size: 60px;
@@ -438,12 +459,30 @@ div.decks div.deck-container div.deck-piece.type_left_turn {
   background-size: 60px;
   background-image: url(../images/piece_left_turn.png);
 }
-div.decks div.deck-container div.deck-piece.type_side_branch {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_side_branch {
   background-image: url(../images/piece_side_branch.png);
 }
-div.decks div.deck-container div.deck-piece.type_triple_branch {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_triple_branch {
   background-image: url(../images/piece_triple_branch.png);
 }
-div.decks div.deck-container div.deck-piece.type_block {
+div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_block {
   background-image: url(../images/piece_block.png);
+}
+div.decks div.deck-container div.deck div.deck-actions {
+  display: inline-block;
+  width: 120px;
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 100px;
+  margin: 10px;
+  float: left;
+}
+div.decks div.deck-container div.deck div.deck-actions:after {
+  content: "";
+  clear: both;
+}
+div.decks div.deck-container.disabled div.deck {
+  -webkit-animation-name: none;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
 }

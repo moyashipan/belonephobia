@@ -56,6 +56,14 @@
 							// デッキ側を更新する
 							focus_piece.removeClass('focus').addClass('disabled');
 
+							var damages = belonephobia.getDamages();
+							var has_damage = (damages.join('') != '0000');
+							// if (has_damage) {
+							// 	alert('1ターン目はダメージを与える手は打てません');
+							// 	// TODO:setToBoardの結果を戻す
+							// 	return;
+							// }
+							belonephobia.drawDamages(damages);
 							belonephobia.drawNextPoints();
 							belonephobia.nextTurn();
 							break;
