@@ -66,15 +66,5 @@
 		}
 
 		belonephobia.init();
-		for (var i in belonephobia.players) {
-			var player = belonephobia.players[i];
-			player.initDeck();
-		}
-
-		// 本来ならプレイヤの順番を決めてから
-		belonephobia.players[belonephobia.player_turn].setEnable(true);
-
-		belonephobia.drawNextPoints();
-		belonephobia.drawBoardPieces();
 	});
 })(jQuery);

@@ -8,7 +8,7 @@ PieceSet.prototype = {
 	template: null,
 	setType:function(type){
 		this.type = type;
-		this.template = belonephobia.deck_piece_templates[this.type];
+		this.template = belonephobia.piece_templates[this.type];
 		return this;
 	},
 	setPlayerId:function(id){

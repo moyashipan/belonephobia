@@ -2,14 +2,14 @@
 function Belonephobia() {
 	// ユニークなtype一覧を取得
 	this.piece_names = [];
-	for (var key in this.deck_piece_templates) {
+	for (var key in this.piece_templates) {
 		if (key == undefined) continue;
 		this.piece_names.push(key);
 	}
 }
 Belonephobia.prototype = {
 	piece_names: [],
-	deck_piece_templates: {
+	piece_templates: {
 		straight:{
 			body    :[[0,0]],
 			input   :[0,1],
@@ -78,25 +78,34 @@ Belonephobia.prototype = {
 	board_rows:10,
 	players: [],
 	init: function() {
-		this.player_turn = 0;
-		this.max_player = 4;
-		this.players = [];
-
 		this.initPlayers();
 		this.initBoardPieces();
+
+		// 本来ならプレイヤの順番を決めてから
+		this.players[this.player_turn].setEnable(true);
+
+		this.drawNextPoints();
+		this.drawBoardPieces();
+	},
+	reset: function() {
+		// TODO:initとは差別化した、再プレイ時に呼ばれるメソッドを追加する	
+		this.player_turn = 0;
+		this.initPlayers();
 	},
 	initPlayers: function() {
-		// 各プレイヤーに配るデッキを作成	
+		this.players = [];
+
+		// 各プレイヤーに配るデッキを作成
 		var deck = [];
 		for (var i in this.deck_piece_names) {
 			var name = this.deck_piece_names[i];
-			if (!this.deck_piece_templates[name]) {
+			if (!this.piece_templates[name]) {
 				continue;
 			}
 			// TODO:nameというよりtype
 			// TODO:ここでnameセットするの微妙
-			this.deck_piece_templates[name].name = name;
-			deck.push(this.deck_piece_templates[name]);
+			this.piece_templates[name].name = name;
+			deck.push(this.piece_templates[name]);
 		}
 		
 		// 各プレイヤーを作成
@@ -107,11 +116,10 @@ Belonephobia.prototype = {
 			new Player(2),
 			new Player(3)
 		];
-		for (var i in this.players) {
-			var player = this.players[i];
+		for (var i in this.players) (function (player){
 			// デッキを配る
-			player.deck = $.merge([], deck);
-		}
+			player.initDeck($.merge([], deck));
+		})(this.players[i]);
 	},
 	initBoardPieces: function() {
 		var pieces_dom = $('.game-container .board .pieces');
@@ -136,7 +144,7 @@ Belonephobia.prototype = {
 	},
 	// pathを設置できる場所(先端の次に来る空白)を強調表示する
 	drawNextPoints: function(focus_piece_type){
-		// TODO:これから設置しようとしてるピースを考慮する？
+		// TODO:focus中のピース(focus_piece_type)を考慮する？
 		$('.base-pieces').find('.highlight').removeClass('highlight');
 		for (var x in this.board_pieces) {
 			var pieces = this.board_pieces[x];
