@@ -4,11 +4,11 @@ function PieceSet() {
 PieceSet.prototype = {
 	type: null,
 	player_id: null,
-	rotation: 0, //0,1,2,3
+	rotation: 0, // 0,1,2,3
 	template: null,
 	setType:function(type){
 		this.type = type;
-		this.template = belonephobia.piece_templates[this.type];
+		this.template = belonephobia.piece_template_manager.getTemplate([this.type]);
 		return this;
 	},
 	setPlayerId:function(id){
@@ -37,7 +37,7 @@ PieceSet.prototype = {
 		if (force_connect) {
 			try {
 				var input = this.template.input;
-				input = this.calcRotation(input[0], input[1], this.rotation);
+				input = this.calcRotation(input, this.rotation);
 				target_piece = belonephobia.board_pieces[+x + input[0]][+y + input[1]];
 				if (target_piece.isBlank()) return false;
 				if (!target_piece.hasOutput(-input[0], -input[1])) return false;
@@ -67,46 +67,57 @@ PieceSet.prototype = {
 		return true;
 	},
 	getPieces:function(){
-		// TODO:横長ピースにも対応させる
 		var retval = [];
 		var template = this.template;
 		for (var i in template.body) {
-			var x = template.body[i][0];
-			var y = template.body[i][1];
+			// 回転させた後の 原点から見た自分の相対座標
+			// 1マスピースなら必ず(0, 0)
+			var self_pos    = this.calcRotation(template.body[i], this.rotation);
 
-			var self_pos    = this.calcRotation(x, y, this.rotation);
-			
+			// 回転させた後の 自分から見た入口マスの相対座標
 			var input;
 			if (template.input) {
-				input = this.calcRotation(template.input[0], template.input[1], this.rotation);
+				// 両方回して差を見る
+				input = this.calcRotation(template.input, this.rotation);
+				input = this.calcSub(input, self_pos);
 			}
 
+			// 回転させた後の 自分から見た出口マスの相対座標
 			var outputs = [];
 			for (var j in template.outputs) {
-				outputs.push(this.calcRotation(template.outputs[j][0], template.outputs[j][1], this.rotation));
+				var output = this.calcRotation(template.outputs[j], this.rotation);
+				output = this.calcSub(output, self_pos);
+				outputs.push(output);
 			}
+			// TODO:座標の渡し方を統一する。配列？オブジェクト？x,yの変数？
 			retval.push({
 				x:self_pos[0],
 				y:self_pos[1],
-				body:[[0,0]],
+				bg_position: template.bg_body[i],
+				body:[[0,0]], // TODO:自分から見た全体の形状を計算する
 				input:input,
 				outputs:outputs
 			});
 		}
 		return retval;
 	},
-	calcRotation:function(x, y, rotation){
+	// point: 変換対象の座標
+	// rotatio: 角度(0,1,2,3)
+	calcRotation:function(point, rotation){
 		switch (rotation) {
 		case 1:
-			return [-y, x];
+			return [-point[1], point[0]];
 		case 2:
-			return [-x, -y];
+			return [-point[0], -point[1]];
 		case 3:
-			return [y, -x];
+			return [point[1], -point[0]];
 		case 0:
 		default:
-			return [x, y];
+			return [point[0], point[1]];
 		}
+	},
+	calcSub:function(a, b){
+		return [a[0] - b[0], a[1] - b[1]];
 	}
 }
 

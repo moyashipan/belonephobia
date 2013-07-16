@@ -10,6 +10,7 @@ BoardPiece.prototype = {
 	body:[],
 	input:[],
 	outputs:[],
+	bg_position:[0, 0],
 	dom: null,
 	setPosition:function(x, y){
 		this.x = x;
@@ -63,9 +64,10 @@ BoardPiece.prototype = {
 		return result;
 	},
 	setStatus:function(piece){
-		this.body    = piece.body;
-		this.input   = piece.input;
-		this.outputs = piece.outputs;
+		this.body        = piece.body;
+		this.input       = piece.input;
+		this.outputs     = piece.outputs;
+		this.bg_position = piece.bg_position;
 		return this;
 	},
 	getInputPath:function(){
@@ -75,12 +77,15 @@ BoardPiece.prototype = {
 	draw:function(){
 		this.dom
 			.removeClass(belonephobia.util.cssFilter())
+			.removeClass(belonephobia.util.cssFilter('pos_'))
 			.addClass('rotate_' + this.rotation);
 		if (this.type) {
 			this.dom
 				.addClass('type_' + this.type)
 				.addClass('player_' + this.player_id);
 		}
+		if (this.bg_position[0] > 0) this.dom.addClass('pos_x_' + this.bg_position[0]);
+		if (this.bg_position[1] > 0) this.dom.addClass('pos_y_' + this.bg_position[1]);
 	}
 };
 

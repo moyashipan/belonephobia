@@ -1,56 +1,9 @@
 /* Belonephobia (main)*/
 function Belonephobia() {
-	// ユニークなtype一覧を取得
-	this.piece_names = [];
-	for (var key in this.piece_templates) {
-		if (key == undefined) continue;
-		this.piece_names.push(key);
-	}
+	this.piece_template_manager = new PieceTemplateManager;
 }
 Belonephobia.prototype = {
-	piece_names: [],
-	piece_templates: {
-		straight:{
-			body    :[[0,0]],
-			input   :[0,1],
-			outputs :[[0,-1]]
-		},
-		left_curve:{
-			body    :[[0,0]],
-			input   :[0,1],
-			outputs :[[-1,0]]
-		},
-		right_curve:{
-			body    :[[0,0]],
-			input   :[0,1],
-			outputs :[[1,0]]
-		},
-		left_turn:{
-			body    :[[0,0],[-1,0]],
-			input   :[0,1],
-			outputs :[[-1,1]]
-		},
-		right_turn:{
-			body    :[[0,0],[1,0]],
-			input   :[0,1],
-			outputs :[[1,1]]
-		},
-		side_branch:{
-			body    :[[0,0]],
-			input   :[0,1],
-			outputs :[[1,0],[-1,0]]
-		},
-		triple_branch:{
-			body    :[[0,0]],
-			input   :[0,1],
-			outputs :[[1,0],[-1,0],[0,-1]]
-		},
-		block:{
-			body    :[[0,0]],
-			input   :null,
-			outputs :null
-		}
-	},
+	piece_template_manager:null,
 	deck_piece_names: [
 		'straight', 'straight',
 		'left_curve','left_curve','left_curve',
@@ -99,13 +52,13 @@ Belonephobia.prototype = {
 		var deck = [];
 		for (var i in this.deck_piece_names) {
 			var name = this.deck_piece_names[i];
-			if (!this.piece_templates[name]) {
+			if (!this.piece_template_manager.getTemplate(name)) {
 				continue;
 			}
 			// TODO:nameというよりtype
 			// TODO:ここでnameセットするの微妙
-			this.piece_templates[name].name = name;
-			deck.push(this.piece_templates[name]);
+			this.piece_template_manager.getTemplate(name).name = name;
+			deck.push(this.piece_template_manager.getTemplate(name));
 		}
 		
 		// 各プレイヤーを作成

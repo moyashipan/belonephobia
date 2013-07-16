@@ -137,6 +137,11 @@ div.board-container {
 					&.type_side_branch	{background-image: url(../images/piece_side_branch.png);}
 					&.type_triple_branch	{background-image: url(../images/piece_triple_branch.png);}
 					&.type_block			{background-image: url(../images/piece_block.png);}
+
+					// 2マスピース用の位置調整
+					&.pos_x_1	{
+						background-position-x: -40px;
+					}
 				}
 			}
 		}

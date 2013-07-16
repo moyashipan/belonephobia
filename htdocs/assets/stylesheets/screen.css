@@ -258,6 +258,9 @@ div.board-container div.board div.board-inner div.pieces div.piece.type_triple_b
 div.board-container div.board div.board-inner div.pieces div.piece.type_block {
   background-image: url(../images/piece_block.png);
 }
+div.board-container div.board div.board-inner div.pieces div.piece.pos_x_1 {
+  background-position-x: -40px;
+}
 
 div.decks {
   position: absolute;
