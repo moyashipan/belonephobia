@@ -40,7 +40,9 @@ Player.prototype = {
 					target.parent().find('.deck-piece').removeClass('focus');
 					if (target.hasClass('disabled')) return; 
 					target.addClass('focus');
-					belonephobia.resetDraft();
+
+					// TODO:自分の番であるプレイヤーが操作した時にだけresetDraftさせたい
+					// belonephobia.resetDraft();
 				}).appendTo(pieces);
 		})(this.deck[i], i);
 	},
