@@ -219,6 +219,8 @@ div.decks {
 				div.damage {
 					display:inline-block;
 					background-color: red;
+					background-image: url(../images/piece_block.png);
+					@include background-size(16px);
 					width:16px;
 					height:16px;
 					margin:2px 0px 0px 2px;
