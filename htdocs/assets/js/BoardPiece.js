@@ -12,6 +12,7 @@ BoardPiece.prototype = {
 	outputs:[],
 	bg_position:[0, 0],
 	dom: null,
+	is_draft: false,
 	setPosition:function(x, y){
 		this.x = +x;
 		this.y = +y;
@@ -19,6 +20,10 @@ BoardPiece.prototype = {
 	},
 	getPosition:function(){
 		return [this.x, this.y];
+	},
+	reset:function(){
+		// NOTE:rotationは保持しておいて欲しいので外した
+		return this.setDraft(false).setType(false).setPlayerId(null);
 	},
 	setType:function(type){
 		this.type = type;
@@ -37,7 +42,7 @@ BoardPiece.prototype = {
 		return this;
 	},
 	isBlank:function(){
-		return (!this.type)? true: false;
+		return (!this.type || this.is_draft)? true: false;
 	},
 	hasOutput:function(dx, dy){
 		var a = [dx, dy].join();
@@ -70,6 +75,10 @@ BoardPiece.prototype = {
 		this.bg_position = piece.bg_position;
 		return this;
 	},
+	setDraft:function(is_draft){
+		this.is_draft = is_draft;
+		return this;
+	},
 	getInputPath:function(){
 	},
 	getOutputPaths:function(){
@@ -98,8 +107,9 @@ BoardPiece.prototype = {
 	draw:function(){
 		this.dom
 			.removeClass(belonephobia.util.cssFilter())
-			.removeClass(belonephobia.util.cssFilter('pos_'))
-			.addClass('rotate_' + this.rotation);
+			.removeClass(belonephobia.util.cssFilter('pos_x|pox_y'))
+			.addClass('rotate_' + this.rotation)
+			.toggleClass('draft', this.is_draft);
 		if (this.type) {
 			this.dom
 				.addClass('type_' + this.type)

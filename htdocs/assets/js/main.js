@@ -17,6 +17,8 @@
 				var _piece = piece.clone().removeClass('piece-template').addClass('piece');
 				_piece
 					.attr('id', 'piece_' + x + '_' + y)
+					.attr('data-x', x)
+					.attr('data-y', y)
 					.on('click', belonephobia.onBoardPieceClick); 
 				pieces.append(_piece);
 			}

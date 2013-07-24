@@ -24,14 +24,31 @@ $player1-base-color: #FFD12A;
 $player2-base-color: #46FF2A;
 $player3-base-color: #FF2A46;
 
-// 点滅
-@-webkit-keyframes pulse {
-	from {
-		@include box-shadow(rgba(white, 0.8) 0px 0px 1px 4px);
+a.button {
+	display: block;
+	@include border-radius(8px, 8px);
+	@include background-image(linear-gradient(top, white, #d0d0d0));
+	padding: 35px 0px 0px 38px;
+	width: 140px;
+	height: 100px;
+	cursor: pointer;
+	font-size: 30px;
+	@include text-shadow(rgba(black, 0.5) 1px 1px 0);
+	@include box-sizing(border-box);
+	@include box-shadow(
+		rgba(white, 0.3) -0px -0px 1px 1px inset,
+		rgba(black, 0.3) 0px 0px 0px 1px
+	);
+	&:hover {
+		@include scale(1.02);
 	}
-	to {
-		@include box-shadow(rgba(white, 0.0) 0px 0px 1px 4px);
+	&:active {
+		@include scale(1.0);
 	}
+}
+
+*[class$="template"] {
+	display: none;
 }
 div.game-container {
 	width:1024px;
@@ -80,7 +97,15 @@ div.board-container {
 					@include box-shadow(rgba(white, 0.3) -0px -0px 1px 1px inset, rgba(black, 0.3) 1px 1px 2px 2px inset);
 
 					&.highlight {
-						background-color: rgba(red, 0.5);
+						&:after {
+							content:"";
+							width:10px;
+							height:10px;
+							background-color: rgba(white, 0.5);
+							display:block;
+							@include border-radius(5px, 5px);
+							margin:16px 16px;
+						}
 					}
 				}
 			}
@@ -90,7 +115,6 @@ div.board-container {
 				@include box-shadow(
 					rgba($base-color, 0.7) 0px 0px 0px 3px inset
 				);
-				@include translate(1px, 1px);
 				background-color:white;
 			}
 
@@ -131,6 +155,9 @@ div.board-container {
 						@include rotate(270deg);
 					}
 
+					&.draft {
+						@include player_piece(rgba(black, 0.8));
+					}
 					// 種類ごとの見た目
 					&.type_straight		{background-image: url(../images/piece_straight.png);}
 					&.type_right_curve	{background-image: url(../images/piece_right_curve.png);}
@@ -200,13 +227,6 @@ div.decks {
 			left: $deck-height + $deck-margin;
 			@include background-image(linear-gradient(top, rgba(white, 0.1), rgba(white, 0.0)));
 			@include border-radius(4px, 4px);
-
-			-webkit-animation-name: pulse;
-			-webkit-animation-duration: 0.2s;
-			-webkit-animation-iteration-count:10;
-			-webkit-animation-timing-function:ease-in-out;
-			-webkit-animation-direction: alternate;
-			-webkit-animation-delay: 0s;
 
 			@include box-shadow(rgba(white, 0.8) 0px 0px 1px 4px);
 
@@ -287,13 +307,11 @@ div.decks {
 
 			div.deck-actions {
 				display: inline-block;
-				width: 120px;
-				background-color: rgba(white, 0.2);
+				width: 140px;
 				height: 100px;
 				margin: 10px;
 				float: left;
 
-				// TODO:これでいいのか？
 				&:after {
 					content:"";
 					clear:both;
@@ -309,6 +327,9 @@ div.decks {
 					rgba(black, 0.2) 0px 0px 4px 1px,
 					rgba(black, 0.2) 0px 0px 2px 1px inset
 				);
+			}
+			a.button {
+				visibility: hidden;
 			}
 		}
 
