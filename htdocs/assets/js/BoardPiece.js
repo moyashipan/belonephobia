@@ -13,8 +13,8 @@ BoardPiece.prototype = {
 	bg_position:[0, 0],
 	dom: null,
 	setPosition:function(x, y){
-		this.x = x;
-		this.y = y;
+		this.x = +x;
+		this.y = +y;
 		return this;
 	},
 	getPosition:function(){
@@ -73,6 +73,27 @@ BoardPiece.prototype = {
 	getInputPath:function(){
 	},
 	getOutputPaths:function(){
+	},
+	// output先のpiecesをイテレートさせるヘルパーメソッド
+	eachOutputPiece: function(callback, fail_callback){
+		var outputs = this.outputs;
+		if (!outputs) return;
+
+		for (var i in outputs) {
+			var position = outputs[i];
+			var dx = +position[0], dy = +position[1];
+			try {
+				var x = this.x + dx, y = this.y + dy;
+				var piece = belonephobia.board_pieces[x][y];
+
+				callback.call(this, dx, dy, piece);
+			} catch (e) {
+				if (fail_callback) {
+					fail_callback.call(this, dx, dy);
+				}
+			}
+		}
+
 	},
 	draw:function(){
 		this.dom

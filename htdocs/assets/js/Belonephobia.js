@@ -95,69 +95,57 @@ Belonephobia.prototype = {
 		this.player_turn = (this.player_turn + 1) % this.max_player;
 		this.players[this.player_turn].setEnable(true);
 	},
-	// pathを設置できる場所(先端の次に来る空白)を強調表示する
-	drawNextPoints: function(focus_piece_type){
-		// TODO:focus中のピース(focus_piece_type)を考慮する？
-		$('.base-pieces').find('.highlight').removeClass('highlight');
+	// board_piecesをイテレートさせるヘルパーメソッド
+	eachBoardPiece: function(callback) {
 		for (var x in this.board_pieces) {
 			var pieces = this.board_pieces[x];
 			for (var y in pieces) {
 				var piece = pieces[y];
-				if (piece.isBlank()) continue;
-				var outputs = piece.outputs;
-				if (!outputs) continue;
-				
-				// 向いてる先のピースを調べる
-				for (var i in outputs) {
-					var position = outputs[i];
-					try {
-						var target_piece = this.board_pieces[+x + position[0]][+y + position[1]];
-						if (!target_piece.isBlank()) continue;
-						var base_piece = $('.base-pieces').find('#piece_' + target_piece.getPosition().join('_'));
-						base_piece.toggleClass('highlight', true);
-					} catch (e) {
-					}
-				}
+				callback.call(this, piece);
 			}
 		}
+	},
+	// pathを設置できる場所(先端の次に来る空白)を強調表示する
+	drawNextPoints: function(focus_piece_type){
+		// TODO:focus中のピース(focus_piece_type)を考慮する？
+		$('.base-pieces').find('.highlight').removeClass('highlight');
+		this.eachBoardPiece(function(piece){
+			if (piece.isBlank()) return;
+			
+			// 向いてる先のピースを調べる
+			piece.eachOutputPiece(function(dx, dy, piece){
+				if (!piece.isBlank()) return;
+				var base_piece = $('.base-pieces').find('#piece_' + piece.getPosition().join('_'));
+				base_piece.toggleClass('highlight', true);
+			});
+		});
 	},
 	// ダメージを計算する
 	getDamages: function(){
 		var map = {"0,1":0, "-1,0":1, "0,-1":2, "1,0":3};
 		var player_damages = [0, 0, 0, 0];
-		for (var x in this.board_pieces) {
-			var pieces = this.board_pieces[x];
-			for (var y in pieces) {
-				var piece = pieces[y];
-				if (piece.isBlank()) continue;
-				var outputs = piece.outputs;
-				if (!outputs) continue;
-				
-				// 向いてる先のピースを調べる
-				for (var i in outputs) {
-					var position = outputs[i];
-					try {
-						var target_piece = this.board_pieces[+x + position[0]][+y + position[1]];
-						if (target_piece.isBlank()) continue;
-						if (!target_piece.input) {
-							player_damages[map[position.join(',')]]++;
-							continue;
-						}
-						// TODO:calcSub()をutilなどに置く
-						if (target_piece.input[0] + position[0] == 0 && target_piece.input[1] + position[1] == 0) {
-							// 先がつながっている
-							continue;
-						}
-						player_damages[map[position.join(',')]]++;
-					} catch (e) {
-						player_damages[map[position.join(',')]]++;
-					}
+		this.eachBoardPiece(function(piece){
+			if (piece.isBlank()) return;
+
+			// 向いてる先のピースを調べる
+			piece.eachOutputPiece(function(dx, dy, piece){
+				if (piece.isBlank()) return;
+				if (!piece.input) {
+					player_damages[map[[dx, dy].join(',')]]++;
+					return;
 				}
-			}
-		}
+				// TODO:calcSub()をutilなどに置く
+				if (piece.input[0] + dx == 0 && piece.input[1] + dy == 0) {
+					// 先がつながっている
+					return;
+				}
+				player_damages[map[[dx, dy].join(',')]]++;
+			}, function(dx, dy){
+				player_damages[map[[dx, dy].join(',')]]++;
+			});
+		});
 		// undefinedなどを除外する
 		player_damages = [player_damages[0], player_damages[1], player_damages[2], player_damages[3]];
-		console.log(player_damages);
 		return player_damages;
 	},
 	drawDamages: function(player_damages){
@@ -173,13 +161,9 @@ Belonephobia.prototype = {
 		return player_damages;
 	},
 	drawBoardPieces: function() {
-		for (var x in this.board_pieces) {
-			var pieces = this.board_pieces[x];
-			for (var y in pieces) {
-				var piece = pieces[y];
-				piece.draw();
-			}
-		}
+		this.eachBoardPiece(function(piece){
+			piece.draw();
+		});
 	}
 };
 
