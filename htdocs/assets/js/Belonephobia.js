@@ -90,6 +90,59 @@ Belonephobia.prototype = {
 		new PieceSet().setType('straight').setPlayerId(2).setRotation(2).setToBoard(5, 5);
 		new PieceSet().setType('straight').setPlayerId(3).setRotation(3).setToBoard(4, 5);
 	},
+	// ボード側のピースクリック時
+	onBoardPieceClick: function(e) {
+		// デッキ側の状態を調べる
+		// TODO:DOM要素じゃなくデッキの状態もデータで持っておくべきかも
+		var focus_piece = $('div.deck' + belonephobia.player_turn).find('div.deck-piece.focus');
+		if (focus_piece.length != 1) return;
+
+		// ボード側の状態を調べる
+		var board_piece_dom = $(this),
+		    position        = board_piece_dom.attr('id').split('_').splice(1, 2),
+		    x               = position[0],
+		    y               = position[1],
+		    board_piece     = belonephobia.board_pieces[x][y];
+		if (!board_piece) {
+			console.log('unknown board_piece');
+			return;
+		}
+		if (!board_piece.isBlank()) {
+			console.log('board_piece not blank');
+			return;
+		}
+		
+		var type = focus_piece.data('type');
+
+		// 設置できるか調べる
+		for (var i in [0,1,2,3]) {
+			var piece_set = new PieceSet()
+				.setType(type)
+				.setPlayerId(belonephobia.player_turn)
+				.setRotation(+i);
+			if (!piece_set.trialToBoard(x, y, true)) {
+				console.log('cannot set');
+				continue;
+			}
+			// ボード側を更新する
+			piece_set.setToBoard(x, y, true);
+
+			// デッキ側を更新する
+			focus_piece.removeClass('focus').addClass('disabled');
+
+			var damages = belonephobia.getDamages();
+			var has_damage = (damages.join('') != '0000');
+			// if (has_damage) {
+			// 	alert('1ターン目はダメージを与える手は打てません');
+			// 	// TODO:setToBoardの結果を戻す
+			// 	return;
+			// }
+			belonephobia.drawDamages(damages);
+			belonephobia.drawNextPoints();
+			belonephobia.nextTurn();
+			break;
+		};
+	},
 	nextTurn: function() {
 		this.players[this.player_turn].setEnable(false);
 		this.player_turn = (this.player_turn + 1) % this.max_player;
