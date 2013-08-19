@@ -15,8 +15,16 @@ Player.prototype = {
 	initDeck: function(deck) {
 		this.deck = deck;
 
-		// お掃除
+		// TODO:お掃除
 		var container = $('.deck' + this.id);
+
+		var deck_dom = $('.deck-template').clone().attr('class', 'deck');
+		container.append(deck_dom);
+
+		deck_dom.find('.button').on('click', function(){
+			belonephobia.deployPiece();
+		});
+
 		var pieces = container.find('.deck-pieces');
 		pieces.children().remove();
 
@@ -32,6 +40,9 @@ Player.prototype = {
 					target.parent().find('.deck-piece').removeClass('focus');
 					if (target.hasClass('disabled')) return; 
 					target.addClass('focus');
+
+					// TODO:自分の番であるプレイヤーが操作した時にだけresetDraftさせたい
+					// belonephobia.resetDraft();
 				}).appendTo(pieces);
 		})(this.deck[i], i);
 	},

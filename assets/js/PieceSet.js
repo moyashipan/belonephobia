@@ -6,6 +6,7 @@ PieceSet.prototype = {
 	player_id: null,
 	rotation: 0, // 0,1,2,3
 	template: null,
+	is_draft: false,
 	setType:function(type){
 		this.type = type;
 		this.template = belonephobia.piece_template_manager.getTemplate([this.type]);
@@ -17,6 +18,10 @@ PieceSet.prototype = {
 	},
 	setRotation:function(index){
 		this.rotation = index;
+		return this;
+	},
+	setDraft:function(is_draft){
+		this.is_draft = is_draft;
 		return this;
 	},
 	trialToBoard:function(x, y, force_connect){
@@ -62,6 +67,7 @@ PieceSet.prototype = {
 				.setPlayerId(this.player_id)
 				.setRotation(this.rotation)
 				.setStatus(piece)
+				.setDraft(this.is_draft)
 				.draw();
 		}
 		return true;

@@ -59,18 +59,46 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-@-webkit-keyframes pulse {
-  from {
-    -webkit-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
-    -moz-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
-    box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
-  }
+a.button {
+  display: block;
+  -webkit-border-radius: 8px 8px;
+  -moz-border-radius: 8px / 8px;
+  border-radius: 8px / 8px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d0d0d0));
+  background-image: -webkit-linear-gradient(top, #ffffff, #d0d0d0);
+  background-image: -moz-linear-gradient(top, #ffffff, #d0d0d0);
+  background-image: -o-linear-gradient(top, #ffffff, #d0d0d0);
+  background-image: linear-gradient(top, #ffffff, #d0d0d0);
+  padding: 35px 0px 0px 38px;
+  width: 140px;
+  height: 100px;
+  cursor: pointer;
+  font-size: 30px;
+  text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.3) 0px 0px 0px 1px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.3) 0px 0px 0px 1px;
+  box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.3) 0px 0px 0px 1px;
+}
+a.button:hover {
+  -webkit-transform: scale(1.02, 1.02);
+  -moz-transform: scale(1.02, 1.02);
+  -ms-transform: scale(1.02, 1.02);
+  -o-transform: scale(1.02, 1.02);
+  transform: scale(1.02, 1.02);
+}
+a.button:active {
+  -webkit-transform: scale(1, 1);
+  -moz-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  -o-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
 
-  to {
-    -webkit-box-shadow: rgba(255, 255, 255, 0) 0px 0px 1px 4px;
-    -moz-box-shadow: rgba(255, 255, 255, 0) 0px 0px 1px 4px;
-    box-shadow: rgba(255, 255, 255, 0) 0px 0px 1px 4px;
-  }
+*[class$="template"] {
+  display: none;
 }
 
 div.game-container {
@@ -139,8 +167,16 @@ div.board-container div.board div.board-inner div.base-pieces div.piece {
   -moz-box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.3) 1px 1px 2px 2px inset;
   box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.3) 1px 1px 2px 2px inset;
 }
-div.board-container div.board div.board-inner div.base-pieces div.piece.highlight {
-  background-color: rgba(255, 0, 0, 0.5);
+div.board-container div.board div.board-inner div.base-pieces div.piece.highlight:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: block;
+  -webkit-border-radius: 5px 5px;
+  -moz-border-radius: 5px / 5px;
+  border-radius: 5px / 5px;
+  margin: 16px 16px;
 }
 div.board-container div.board div.board-inner div.pieces {
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 2px, rgba(0, 0, 0, 0.8) 0px 0px 2px 2px inset;
@@ -163,11 +199,6 @@ div.board-container div.board div.board-inner div.pieces div.piece.player_0 {
   -webkit-box-shadow: rgba(42, 124, 255, 0.7) 0px 0px 0px 3px inset;
   -moz-box-shadow: rgba(42, 124, 255, 0.7) 0px 0px 0px 3px inset;
   box-shadow: rgba(42, 124, 255, 0.7) 0px 0px 0px 3px inset;
-  -webkit-transform: translate(1px, 1px);
-  -moz-transform: translate(1px, 1px);
-  -ms-transform: translate(1px, 1px);
-  -o-transform: translate(1px, 1px);
-  transform: translate(1px, 1px);
   background-color: white;
 }
 div.board-container div.board div.board-inner div.pieces div.piece.player_1 {
@@ -177,11 +208,6 @@ div.board-container div.board div.board-inner div.pieces div.piece.player_1 {
   -webkit-box-shadow: rgba(255, 209, 42, 0.7) 0px 0px 0px 3px inset;
   -moz-box-shadow: rgba(255, 209, 42, 0.7) 0px 0px 0px 3px inset;
   box-shadow: rgba(255, 209, 42, 0.7) 0px 0px 0px 3px inset;
-  -webkit-transform: translate(1px, 1px);
-  -moz-transform: translate(1px, 1px);
-  -ms-transform: translate(1px, 1px);
-  -o-transform: translate(1px, 1px);
-  transform: translate(1px, 1px);
   background-color: white;
 }
 div.board-container div.board div.board-inner div.pieces div.piece.player_2 {
@@ -191,11 +217,6 @@ div.board-container div.board div.board-inner div.pieces div.piece.player_2 {
   -webkit-box-shadow: rgba(70, 255, 42, 0.7) 0px 0px 0px 3px inset;
   -moz-box-shadow: rgba(70, 255, 42, 0.7) 0px 0px 0px 3px inset;
   box-shadow: rgba(70, 255, 42, 0.7) 0px 0px 0px 3px inset;
-  -webkit-transform: translate(1px, 1px);
-  -moz-transform: translate(1px, 1px);
-  -ms-transform: translate(1px, 1px);
-  -o-transform: translate(1px, 1px);
-  transform: translate(1px, 1px);
   background-color: white;
 }
 div.board-container div.board div.board-inner div.pieces div.piece.player_3 {
@@ -205,11 +226,6 @@ div.board-container div.board div.board-inner div.pieces div.piece.player_3 {
   -webkit-box-shadow: rgba(255, 42, 70, 0.7) 0px 0px 0px 3px inset;
   -moz-box-shadow: rgba(255, 42, 70, 0.7) 0px 0px 0px 3px inset;
   box-shadow: rgba(255, 42, 70, 0.7) 0px 0px 0px 3px inset;
-  -webkit-transform: translate(1px, 1px);
-  -moz-transform: translate(1px, 1px);
-  -ms-transform: translate(1px, 1px);
-  -o-transform: translate(1px, 1px);
-  transform: translate(1px, 1px);
   background-color: white;
 }
 div.board-container div.board div.board-inner div.pieces div.piece.rotate_0 {
@@ -239,6 +255,15 @@ div.board-container div.board div.board-inner div.pieces div.piece.rotate_3 {
   -ms-transform: rotate(270deg);
   -o-transform: rotate(270deg);
   transform: rotate(270deg);
+}
+div.board-container div.board div.board-inner div.pieces div.piece.draft {
+  -webkit-border-radius: 4px 4px;
+  -moz-border-radius: 4px / 4px;
+  border-radius: 4px / 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 0px 3px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 0px 3px inset;
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 0px 3px inset;
+  background-color: white;
 }
 div.board-container div.board div.board-inner div.pieces div.piece.type_straight {
   background-image: url(../images/piece_straight.png);
@@ -362,12 +387,6 @@ div.decks div.deck-container div.deck {
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
-  -webkit-animation-name: pulse;
-  -webkit-animation-duration: 0.2s;
-  -webkit-animation-iteration-count: 10;
-  -webkit-animation-timing-function: ease-in-out;
-  -webkit-animation-direction: alternate;
-  -webkit-animation-delay: 0s;
   -webkit-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
   -moz-box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
   box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1px 4px;
@@ -386,6 +405,11 @@ div.decks div.deck-container div.deck div.deck-damages {
 div.decks div.deck-container div.deck div.deck-damages div.damage {
   display: inline-block;
   background-color: red;
+  background-image: url(../images/piece_block.png);
+  -webkit-background-size: 16px;
+  -moz-background-size: 16px;
+  -o-background-size: 16px;
+  background-size: 16px;
   width: 16px;
   height: 16px;
   margin: 2px 0px 0px 2px;
@@ -470,8 +494,7 @@ div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_block 
 }
 div.decks div.deck-container div.deck div.deck-actions {
   display: inline-block;
-  width: 120px;
-  background-color: rgba(255, 255, 255, 0.2);
+  width: 140px;
   height: 100px;
   margin: 10px;
   float: left;
@@ -485,4 +508,7 @@ div.decks div.deck-container.disabled div.deck {
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
+}
+div.decks div.deck-container.disabled a.button {
+  visibility: hidden;
 }
