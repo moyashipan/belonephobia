@@ -41,8 +41,12 @@ BoardPiece.prototype = {
 		this.dom = dom;
 		return this;
 	},
-	isBlank:function(){
-		return (!this.type || this.is_draft)? true: false;
+	isBlank:function(is_trial){
+		if (is_trial === true) {
+			return !this.type;
+		} else {
+			return (!this.type || this.is_draft);
+		}
 	},
 	hasOutput:function(dx, dy){
 		var a = [dx, dy].join();

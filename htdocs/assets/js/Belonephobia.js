@@ -127,8 +127,18 @@ Belonephobia.prototype = {
 		piece_set = enable_sets[0];
 		piece_set.setToBoard(x, y, true);
 	},
+	hasDamage: function(is_trial) {
+		var damages = belonephobia.getDamages(is_trial);
+		var has_damage = (damages.join('') != '0000');
+		return has_damage;
+	},
 	// draft状態を確定状態へ
 	deployPiece: function() {
+		if (belonephobia.hasDamage(true)) {
+			alert('1ターン目はダメージを与える手は打てません');
+			return;
+		}
+
 		// draft状態を確定する
 		var has_draft = false;
 		belonephobia.eachBoardPiece(function(piece){
@@ -144,12 +154,6 @@ Belonephobia.prototype = {
 		focus_piece.removeClass('focus').addClass('disabled');
 
 		var damages = belonephobia.getDamages();
-		var has_damage = (damages.join('') != '0000');
-		// if (has_damage) {
-		// 	alert('1ターン目はダメージを与える手は打てません');
-		// 	// TODO:setToBoardの結果を戻す
-		// 	return;
-		// }
 		belonephobia.drawDamages(damages);
 		belonephobia.drawNextPoints();
 		belonephobia.nextTurn();
@@ -190,15 +194,15 @@ Belonephobia.prototype = {
 		});
 	},
 	// ダメージを計算する
-	getDamages: function(){
+	getDamages: function(is_trial){
 		var map = {"0,1":0, "-1,0":1, "0,-1":2, "1,0":3};
 		var player_damages = [0, 0, 0, 0];
 		this.eachBoardPiece(function(piece){
-			if (piece.isBlank()) return;
+			if (piece.isBlank(is_trial)) return;
 
 			// 向いてる先のピースを調べる
 			piece.eachOutputPiece(function(dx, dy, piece){
-				if (piece.isBlank()) return;
+				if (piece.isBlank(is_trial)) return;
 				if (!piece.input) {
 					player_damages[map[[dx, dy].join(',')]]++;
 					return;
