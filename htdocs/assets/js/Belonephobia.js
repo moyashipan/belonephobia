@@ -24,6 +24,7 @@ Belonephobia.prototype = {
 	},
 
 	board_pieces: [],
+	turn: 1,
 	// playerが順番に並んだ配列を用意しておいて添え字player_turnで参照する必要あるかも
 	player_turn: 0,
 	max_player: 4,
@@ -42,6 +43,7 @@ Belonephobia.prototype = {
 	},
 	reset: function() {
 		// TODO:initとは差別化した、再プレイ時に呼ばれるメソッドを追加する	
+		this.turn = 1;
 		this.player_turn = 0;
 		this.initPlayers();
 	},
@@ -134,7 +136,7 @@ Belonephobia.prototype = {
 	},
 	// draft状態を確定状態へ
 	deployPiece: function() {
-		if (belonephobia.hasDamage(true)) {
+		if (belonephobia.turn === 1 && belonephobia.hasDamage(true)) {
 			alert('1ターン目はダメージを与える手は打てません');
 			return;
 		}
@@ -167,6 +169,7 @@ Belonephobia.prototype = {
 		this.players[this.player_turn].setEnable(false);
 		this.player_turn = (this.player_turn + 1) % this.max_player;
 		this.players[this.player_turn].setEnable(true);
+		this.turn += +(this.player_turn === 0);
 	},
 	// board_piecesをイテレートさせるヘルパーメソッド
 	eachBoardPiece: function(callback) {
