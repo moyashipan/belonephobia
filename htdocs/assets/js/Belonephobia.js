@@ -11,8 +11,7 @@ Belonephobia.prototype = {
 		'left_turn',
 		'right_turn',
 		'side_branch',
-		'triple_branch',
-		'block'
+		'triple_branch'
 	],
 	util: {
 		cssFilter: function(prefix_pattern){
