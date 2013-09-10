@@ -1,5 +1,6 @@
 (function($){
 	$(document).ready(function() {
+		window.scrollTo(0,1);
 		belonephobia = new Belonephobia();
 
 		var base_pieces = $('.game-container .board .base-pieces');
@@ -25,5 +26,16 @@
 		}
 
 		belonephobia.init();
+
+		document.addEventListener('gestureend', function(e) {
+			// TODO: game-containerをさらに入れ子にして、ユーザーの視点を切り替えられるようにしたい
+			// bodyではなく中でズームin/outしてscrollする
+			if (e.scale < 1.0) {
+				// User moved fingers closer together
+			} else if (e.scale > 1.0) {
+				// User moved fingers further apart
+			}
+		}, false);
+		
 	});
 })(jQuery);
