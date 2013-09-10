@@ -7,17 +7,19 @@
 @import "compass/css3";
 @import "compass/utilities/general/clearfix";
 
-$piece-size : 40px;
+
+$game-width : 640px;
+
+$board-width : 320px;
+$board-height : 320px;
+$board-padding : 5px;
+
 $piece-columns : 10;
 $piece-rows : 10;
+$piece-size : ($board-width - $board-padding * 2) / $piece-columns;
 
-$board-width : $piece-size * $piece-columns;
-$board-height : $piece-size * $piece-rows;
-
-$deck-height : 100px;
-$deck-margin : 62px;
-
-$game-width : $board-width + 22px + ($deck-height + $deck-margin) * 2;
+$deck-width : 480px;
+$deck-height : 160px;
 
 $player0-base-color: #2A7CFF;
 $player1-base-color: #FFD12A;
@@ -29,8 +31,8 @@ a.button {
 	@include border-radius(8px, 8px);
 	@include background-image(linear-gradient(top, white, #d0d0d0));
 	padding: 35px 0px 0px 38px;
-	width: 140px;
-	height: 100px;
+	// width: 140px;
+	// height: 100px;
 	cursor: pointer;
 	font-size: 30px;
 	@include text-shadow(rgba(black, 0.5) 1px 1px 0);
@@ -50,9 +52,13 @@ a.button {
 *[class$="template"] {
 	display: none;
 }
+body {
+	overflow: hidden;
+	background-color: #006958;
+}
 div.game-container {
-	width:1024px;
-	height:768px;
+	width:640px;
+	height:960px;
 	@include background-image(linear-gradient(top, #00967d, #006958));
 }
 div.board-container {
@@ -63,20 +69,20 @@ div.board-container {
 	div.board {
 		width:$board-width;
 		height:$board-height;
-		padding:10px;
+		padding:$board-padding;
 		border:1px black solid;
+		@include box-sizing(border-box);
 		@include border-radius(4px, 4px);
 		@include background-image(linear-gradient(top, #404040, #000000));
-		margin:$deck-height + $deck-margin;
+		margin:$deck-height;
 
 		div.board-inner {
-			width:$board-width;
-			height:$board-height;
 			@include clearfix;
 			
 			div.pieces, div.base-pieces{
 				position: absolute;
-				width:$board-width;
+				width:$board-width - $board-padding * 2;
+				height:$board-height - $board-padding * 2;
 			}
 
 			div.piece {
@@ -104,7 +110,8 @@ div.board-container {
 							background-color: rgba(white, 0.5);
 							display:block;
 							@include border-radius(5px, 5px);
-							margin:16px 16px;
+							margin: $piece-size / 2 - 5px;
+							// TODO:画像でよくね？
 						}
 					}
 				}
@@ -163,11 +170,11 @@ div.board-container {
 					&.type_right_curve	{background-image: url(../images/piece_right_curve.png);}
 					&.type_left_curve	{background-image: url(../images/piece_left_curve.png);}
 					&.type_right_turn	{
-						@include background-size(80px, 40px);
+						@include background-size($piece-size * 2, $piece-size);
 						background-image: url(../images/piece_right_turn.png);
 					}
 					&.type_left_turn	{
-						@include background-size(80px, 40px);
+						@include background-size($piece-size * 2, $piece-size);
 						background-image: url(../images/piece_left_turn.png);
 					}
 					&.type_side_branch	{background-image: url(../images/piece_side_branch.png);}
@@ -176,7 +183,7 @@ div.board-container {
 
 					// 2マスピース用の位置調整
 					&.pos_x_1	{
-						background-position-x: -40px;
+						background-position-x: -$piece-size;
 					}
 				}
 			}
@@ -221,14 +228,14 @@ div.decks {
 
 		/* 共通deck */
 		div.deck {
-			width: $board-width + $deck-height + $deck-margin + 10px;
+			width: $deck-width;
+			height: $deck-height;
 			position:absolute;
-			top:$board-width + $deck-height + ($deck-margin - 15px) * 2;
-			left: $deck-height + $deck-margin;
+			top:$board-width + $deck-height;
+			left: $deck-height;
 			@include background-image(linear-gradient(top, rgba(white, 0.1), rgba(white, 0.0)));
 			@include border-radius(4px, 4px);
 
-			@include box-shadow(rgba(white, 0.8) 0px 0px 1px 4px);
 
 			div.deck-damages {
 				width: 100%;
@@ -250,8 +257,10 @@ div.decks {
 			div.deck-pieces {
 				display: inline-block;
 				width:$board-width - 10px;
-				height:$deck-height;
-				overflow:scroll;
+				// height:$deck-height;
+				line-height: 0px;
+				overflow-x:hidden;
+				overflow-y:auto;
 				margin: 10px 0px 10px 10px;
 				padding-right: 10px;
 				float: left;
@@ -259,7 +268,7 @@ div.decks {
 
 				div.deck-piece {
 					display:inline-block;
-					margin:7px;
+					margin:6px;
 					width:30px;
 					height:30px;
 					@include border-radius(2px, 2px);
@@ -290,13 +299,13 @@ div.decks {
 					&.type_right_curve	{background-image: url(../images/piece_right_curve.png);}
 					&.type_left_curve	{background-image: url(../images/piece_left_curve.png);}
 					&.type_right_turn	{
-						width:60px;
-						@include background-size(60px);
+						width:$piece-size * 2;
+						@include background-size($piece-size * 2);
 						background-image: url(../images/piece_right_turn.png);
 					}
 					&.type_left_turn	{
-						width:60px;
-						@include background-size(60px);
+						width:$piece-size * 2;
+						@include background-size($piece-size * 2);
 						background-image: url(../images/piece_left_turn.png);
 					}
 					&.type_side_branch	{background-image: url(../images/piece_side_branch.png);}
@@ -307,8 +316,8 @@ div.decks {
 
 			div.deck-actions {
 				display: inline-block;
-				width: 140px;
-				height: 100px;
+				// width: 140px;
+				// height: 100px;
 				margin: 10px;
 				float: left;
 
