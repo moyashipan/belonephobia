@@ -69,7 +69,10 @@ a.button {
   background-image: -moz-linear-gradient(top, #ffffff, #d0d0d0);
   background-image: -o-linear-gradient(top, #ffffff, #d0d0d0);
   background-image: linear-gradient(top, #ffffff, #d0d0d0);
-  padding: 35px 0px 0px 38px;
+  width: 100%;
+  height: 100%;
+  line-height: 80px;
+  text-align: center;
   cursor: pointer;
   font-size: 30px;
   text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 0;
@@ -120,8 +123,8 @@ div.board-container {
   height: 640px;
 }
 div.board-container div.board {
-  width: 320px;
-  height: 320px;
+  width: 400px;
+  height: 400px;
   padding: 5px;
   border: 1px black solid;
   -webkit-box-sizing: border-box;
@@ -135,7 +138,7 @@ div.board-container div.board {
   background-image: -moz-linear-gradient(top, #404040, #000000);
   background-image: -o-linear-gradient(top, #404040, #000000);
   background-image: linear-gradient(top, #404040, #000000);
-  margin: 160px;
+  margin: 120px;
 }
 div.board-container div.board div.board-inner {
   overflow: hidden;
@@ -143,12 +146,12 @@ div.board-container div.board div.board-inner {
 }
 div.board-container div.board div.board-inner div.pieces, div.board-container div.board div.board-inner div.base-pieces {
   position: absolute;
-  width: 310px;
-  height: 310px;
+  width: 390px;
+  height: 390px;
 }
 div.board-container div.board div.board-inner div.piece {
-  width: 31px;
-  height: 31px;
+  width: 39px;
+  height: 39px;
   display: inline-block;
   float: left;
 }
@@ -181,7 +184,7 @@ div.board-container div.board div.board-inner div.base-pieces div.piece.highligh
   -webkit-border-radius: 5px 5px;
   -moz-border-radius: 5px / 5px;
   border-radius: 5px / 5px;
-  margin: 10.5px;
+  margin: 14.5px;
 }
 div.board-container div.board div.board-inner div.pieces {
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 2px, rgba(0, 0, 0, 0.8) 0px 0px 2px 2px inset;
@@ -189,10 +192,10 @@ div.board-container div.board div.board-inner div.pieces {
   box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 2px, rgba(0, 0, 0, 0.8) 0px 0px 2px 2px inset;
 }
 div.board-container div.board div.board-inner div.pieces div.piece {
-  -webkit-background-size: 31px, 31px;
-  -moz-background-size: 31px, 31px;
-  -o-background-size: 31px, 31px;
-  background-size: 31px, 31px;
+  -webkit-background-size: 39px, 39px;
+  -moz-background-size: 39px, 39px;
+  -o-background-size: 39px, 39px;
+  background-size: 39px, 39px;
 }
 div.board-container div.board div.board-inner div.pieces div.piece:hover {
   cursor: pointer;
@@ -280,17 +283,17 @@ div.board-container div.board div.board-inner div.pieces div.piece.type_left_cur
   background-image: url(../images/piece_left_curve.png);
 }
 div.board-container div.board div.board-inner div.pieces div.piece.type_right_turn {
-  -webkit-background-size: 62px, 31px;
-  -moz-background-size: 62px, 31px;
-  -o-background-size: 62px, 31px;
-  background-size: 62px, 31px;
+  -webkit-background-size: 78px, 39px;
+  -moz-background-size: 78px, 39px;
+  -o-background-size: 78px, 39px;
+  background-size: 78px, 39px;
   background-image: url(../images/piece_right_turn.png);
 }
 div.board-container div.board div.board-inner div.pieces div.piece.type_left_turn {
-  -webkit-background-size: 62px, 31px;
-  -moz-background-size: 62px, 31px;
-  -o-background-size: 62px, 31px;
-  background-size: 62px, 31px;
+  -webkit-background-size: 78px, 39px;
+  -moz-background-size: 78px, 39px;
+  -o-background-size: 78px, 39px;
+  background-size: 78px, 39px;
   background-image: url(../images/piece_left_turn.png);
 }
 div.board-container div.board div.board-inner div.pieces div.piece.type_side_branch {
@@ -303,7 +306,7 @@ div.board-container div.board div.board-inner div.pieces div.piece.type_block {
   background-image: url(../images/piece_block.png);
 }
 div.board-container div.board div.board-inner div.pieces div.piece.pos_x_1 {
-  background-position-x: -31px;
+  background-position-x: -39px;
 }
 
 div.decks {
@@ -380,11 +383,11 @@ div.decks div.deck-container.deck3 div.deck {
   background-color: #ff2a46;
 }
 div.decks div.deck-container div.deck {
-  width: 480px;
-  height: 160px;
+  width: 520px;
+  height: 120px;
   position: absolute;
-  top: 480px;
-  left: 160px;
+  top: 520px;
+  left: 120px;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
@@ -419,12 +422,13 @@ div.decks div.deck-container div.deck div.deck-damages div.damage {
 }
 div.decks div.deck-container div.deck div.deck-pieces {
   display: inline-block;
-  width: 310px;
+  width: 350px;
   line-height: 0px;
   overflow-x: hidden;
   overflow-y: auto;
-  margin: 10px 0px 10px 10px;
+  margin: 8px 0px 8px 8px;
   padding-right: 10px;
+  padding-left: 4px;
   float: left;
   border-right: 1px dashed white;
 }
@@ -472,19 +476,19 @@ div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_left_c
   background-image: url(../images/piece_left_curve.png);
 }
 div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_right_turn {
-  width: 62px;
-  -webkit-background-size: 62px;
-  -moz-background-size: 62px;
-  -o-background-size: 62px;
-  background-size: 62px;
+  width: 60px;
+  -webkit-background-size: 60px;
+  -moz-background-size: 60px;
+  -o-background-size: 60px;
+  background-size: 60px;
   background-image: url(../images/piece_right_turn.png);
 }
 div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_left_turn {
-  width: 62px;
-  -webkit-background-size: 62px;
-  -moz-background-size: 62px;
-  -o-background-size: 62px;
-  background-size: 62px;
+  width: 60px;
+  -webkit-background-size: 60px;
+  -moz-background-size: 60px;
+  -o-background-size: 60px;
+  background-size: 60px;
   background-image: url(../images/piece_left_turn.png);
 }
 div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_side_branch {
@@ -498,6 +502,8 @@ div.decks div.deck-container div.deck div.deck-pieces div.deck-piece.type_block 
 }
 div.decks div.deck-container div.deck div.deck-actions {
   display: inline-block;
+  width: 125px;
+  height: 80px;
   margin: 10px;
   float: left;
 }
@@ -507,9 +513,6 @@ div.decks div.deck-container div.deck div.deck-actions:after {
 }
 div.decks div.deck-container.disabled div.deck {
   -webkit-animation-name: none;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 1px, rgba(0, 0, 0, 0.2) 0px 0px 2px 1px inset;
 }
 div.decks div.deck-container.disabled a.button {
   visibility: hidden;

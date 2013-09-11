@@ -10,16 +10,16 @@
 
 $game-width : 640px;
 
-$board-width : 320px;
-$board-height : 320px;
+$board-width : 400px;
+$board-height : 400px;
 $board-padding : 5px;
 
 $piece-columns : 10;
 $piece-rows : 10;
 $piece-size : ($board-width - $board-padding * 2) / $piece-columns;
 
-$deck-width : 480px;
-$deck-height : 160px;
+$deck-height : ($game-width - $board-width ) / 2;
+$deck-width : $game-width - $deck-height;
 
 $player0-base-color: #2A7CFF;
 $player1-base-color: #FFD12A;
@@ -30,9 +30,10 @@ a.button {
 	display: block;
 	@include border-radius(8px, 8px);
 	@include background-image(linear-gradient(top, white, #d0d0d0));
-	padding: 35px 0px 0px 38px;
-	// width: 140px;
-	// height: 100px;
+	width: 100%;
+	height: 100%;
+	line-height: 80px;
+	text-align: center;
 	cursor: pointer;
 	font-size: 30px;
 	@include text-shadow(rgba(black, 0.5) 1px 1px 0);
@@ -256,13 +257,14 @@ div.decks {
 
 			div.deck-pieces {
 				display: inline-block;
-				width:$board-width - 10px;
+				width:350px;
 				// height:$deck-height;
 				line-height: 0px;
 				overflow-x:hidden;
 				overflow-y:auto;
-				margin: 10px 0px 10px 10px;
+				margin: 8px 0px 8px 8px;
 				padding-right: 10px;
+				padding-left: 4px;
 				float: left;
 				border-right: 1px dashed white;
 
@@ -299,13 +301,13 @@ div.decks {
 					&.type_right_curve	{background-image: url(../images/piece_right_curve.png);}
 					&.type_left_curve	{background-image: url(../images/piece_left_curve.png);}
 					&.type_right_turn	{
-						width:$piece-size * 2;
-						@include background-size($piece-size * 2);
+						width:60px;
+						@include background-size(60px);
 						background-image: url(../images/piece_right_turn.png);
 					}
 					&.type_left_turn	{
-						width:$piece-size * 2;
-						@include background-size($piece-size * 2);
+						width:60px;
+						@include background-size(60px);
 						background-image: url(../images/piece_left_turn.png);
 					}
 					&.type_side_branch	{background-image: url(../images/piece_side_branch.png);}
@@ -316,8 +318,8 @@ div.decks {
 
 			div.deck-actions {
 				display: inline-block;
-				// width: 140px;
-				// height: 100px;
+				width: 125px;
+				height: 80px;
 				margin: 10px;
 				float: left;
 
@@ -332,10 +334,6 @@ div.decks {
 		&.disabled {
 			div.deck {
 				-webkit-animation-name: none;
-				@include box-shadow(
-					rgba(black, 0.2) 0px 0px 4px 1px,
-					rgba(black, 0.2) 0px 0px 2px 1px inset
-				);
 			}
 			a.button {
 				visibility: hidden;
