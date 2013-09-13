@@ -72,6 +72,19 @@ PieceSet.prototype = {
 		}
 		return true;
 	},
+	removeFromBoard:function(x, y){
+		// undoのために呼ばれる
+		var pieces = this.getPieces();
+		for (var i in pieces) {
+			var piece = pieces[i];
+			var target_piece = belonephobia.board_pieces[+x + piece.x][+y + piece.y];
+			target_piece
+				.reset()
+				.setRotation(0)
+				.draw();
+		}
+		return true;
+	},
 	getPieces:function(){
 		var retval = [];
 		var template = this.template;
