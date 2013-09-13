@@ -55,6 +55,13 @@ Player.prototype = {
 		container.children().each(function(){
 			// TODO:
 		}); 
+	},
+	undoPiece: function(type) {
+		var container = $('.deck' + this.id);
+		console.log(container.find('.deck-pieces .deck-piece.type_' + type).first());
+		console.log('.deck-pieces .deck-piece.type_' + type);
+		container.find('.deck-pieces .disabled.deck-piece.type_' + type).first().removeClass('disabled');
+		this.drawDeck();
 	}
 };
 
