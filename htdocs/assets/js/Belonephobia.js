@@ -30,6 +30,7 @@ Belonephobia.prototype = {
 	board_columns:10,
 	board_rows:10,
 	players: [],
+	history: null,
 	init: function() {
 		this.initPlayers();
 		this.initBoardPieces();
@@ -39,12 +40,15 @@ Belonephobia.prototype = {
 
 		this.drawNextPoints();
 		this.drawBoardPieces();
+
+		this.history = new History();
 	},
 	reset: function() {
 		// TODO:initとは差別化した、再プレイ時に呼ばれるメソッドを追加する	
 		this.turn = 1;
 		this.player_turn = 0;
 		this.initPlayers();
+		this.history = new History();
 	},
 	initPlayers: function() {
 		this.players = [];
@@ -127,6 +131,9 @@ Belonephobia.prototype = {
 
 		piece_set = enable_sets[0];
 		piece_set.setToBoard(x, y, true);
+
+		// 履歴の一時スロットに格納する
+		belonephobia.history.charge('set', {x:x, y:y, piece_set:piece_set});
 	},
 	hasDamage: function(is_trial) {
 		var damages = belonephobia.getDamages(is_trial);
@@ -150,6 +157,9 @@ Belonephobia.prototype = {
 		});
 		if (!has_draft) return;
 
+		// 一時スロットに格納された操作を履歴に追加する
+		belonephobia.history.addCharge();
+
 		// デッキ側を更新する
 		var focus_piece = $('div.deck' + belonephobia.player_turn).find('div.deck-piece.focus');
 		focus_piece.removeClass('focus').addClass('disabled');
@@ -169,6 +179,13 @@ Belonephobia.prototype = {
 		this.player_turn = (this.player_turn + 1) % this.max_player;
 		this.players[this.player_turn].setEnable(true);
 		this.turn += +(this.player_turn === 0);
+	},
+	prevTurn: function() {
+		this.players[this.player_turn].setEnable(false);
+		// マイナスにならないように3を引く(-1+4)
+		this.player_turn = (this.player_turn + 3) % this.max_player;
+		this.players[this.player_turn].setEnable(true);
+		this.turn -= +(this.player_turn === 3);
 	},
 	// board_piecesをイテレートさせるヘルパーメソッド
 	eachBoardPiece: function(callback) {
