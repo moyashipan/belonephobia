@@ -27,6 +27,11 @@
 
 		belonephobia.init();
 
+		// ボタンに操作を割り当てる
+		$('div.game-actions button.undo').on('click', function(){
+			belonephobia.history.undo();
+		});
+
 		document.addEventListener('gestureend', function(e) {
 			// TODO: game-containerをさらに入れ子にして、ユーザーの視点を切り替えられるようにしたい
 			// bodyではなく中でズームin/outしてscrollする

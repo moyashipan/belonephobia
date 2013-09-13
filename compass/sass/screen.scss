@@ -63,11 +63,12 @@ div.game-container {
 	@include background-image(linear-gradient(top, #00967d, #006958));
 }
 div.board-container {
-	position:absolute;
 	width:$game-width;
 	height:$game-width;
 
 	div.board {
+		display: inline-block;
+		margin: 120px;
 		width:$board-width;
 		height:$board-height;
 		padding:$board-padding;
@@ -194,6 +195,8 @@ div.board-container {
 
 div.decks {
 	position:absolute;
+	top:0px;
+	left:0px;
 	div.deck-container {
 		position:absolute;
 		@include transform-origin($game-width / 2, $game-width /2);
@@ -343,3 +346,10 @@ div.decks {
 	}
 }
 
+div.game-actions {
+	margin-top: 15px;
+	button.undo {
+		width:120px;
+		height:60px;
+	}
+}

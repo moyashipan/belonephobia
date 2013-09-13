@@ -118,11 +118,12 @@ div.game-container {
 }
 
 div.board-container {
-  position: absolute;
   width: 640px;
   height: 640px;
 }
 div.board-container div.board {
+  display: inline-block;
+  margin: 120px;
   width: 400px;
   height: 400px;
   padding: 5px;
@@ -311,6 +312,8 @@ div.board-container div.board div.board-inner div.pieces div.piece.pos_x_1 {
 
 div.decks {
   position: absolute;
+  top: 0px;
+  left: 0px;
 }
 div.decks div.deck-container {
   position: absolute;
@@ -516,4 +519,12 @@ div.decks div.deck-container.disabled div.deck {
 }
 div.decks div.deck-container.disabled a.button {
   visibility: hidden;
+}
+
+div.game-actions {
+  margin-top: 15px;
+}
+div.game-actions button.undo {
+  width: 120px;
+  height: 60px;
 }
